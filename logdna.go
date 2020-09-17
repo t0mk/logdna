@@ -3,7 +3,6 @@ package logdna
 import (
 	"bytes"
 	"encoding/json"
-	"log"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -150,7 +149,6 @@ func (c *Client) Size() int {
 func (c *Client) Flush() error {
 	// Return immediately if no logs to send
 	si := c.Size()
-	log.Println("Flush called", si, "buffered")
 	if si == 0 {
 		return nil
 	}
@@ -175,7 +173,7 @@ func (c *Client) Flush() error {
 
 	c.payload = payloadJSON{}
 
-	return err
+	return nil
 }
 
 // Close closes the client. It also sends any buffered logs.
