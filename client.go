@@ -116,7 +116,7 @@ func (c *Client) send(logs []*logPayload) error {
 func (c *Client) callAPI(params interface{}) error {
 	conf := c.Config
 	now := time.Now().UnixNano() / int64(time.Millisecond)
-	url := fmt.Sprintf("%s?hostname=%s&mac=%s&ip=%s&now=%d", conf.endpoint, conf.hostname, conf.macaddr, conf.ip, now)
+	url := fmt.Sprintf("%s?hostname=%s&ip=%s&now=%d", conf.endpoint, conf.hostname, conf.ip, now)
 
 	resp, err := request.POST(url, request.Option{
 		Payload:     params,
@@ -124,7 +124,7 @@ func (c *Client) callAPI(params interface{}) error {
 		User:        conf.apikey,
 		Retry:       !conf.NoRetry,
 		Debug:       conf.Debug,
-		UserAgent:   "go-logdna/v0.0.1",
+		UserAgent:   "t0mk/go-logdna",
 		Timeout:     conf.timeout,
 	})
 	if err != nil {

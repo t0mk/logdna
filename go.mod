@@ -1,13 +1,11 @@
-module github.com/evalphobia/go-logdna
+module github.com/t0mk/logdna
 
-go 1.12
+go 1.15
 
 require (
-	github.com/evalphobia/httpwrapper v0.2.0
-	github.com/nbio/st v0.0.0-20140626010706-e9e8d9816f32 // indirect
-	github.com/stretchr/testify v1.3.0 // indirect
-	golang.org/x/net v0.0.0-20190628185345-da137c7871d7 // indirect
+	github.com/evalphobia/httpwrapper v0.2.1
+	golang.org/x/net v0.0.0-20200904194848-62affa334b73 // indirect
 	gopkg.in/eapache/go-resiliency.v1 v1.2.0 // indirect
 	gopkg.in/h2non/gentleman-retry.v2 v2.0.1 // indirect
-	gopkg.in/h2non/gentleman.v2 v2.0.3 // indirect
+	gopkg.in/h2non/gentleman.v2 v2.0.4 // indirect
 )
