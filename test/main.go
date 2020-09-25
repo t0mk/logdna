@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"os/signal"
@@ -23,6 +24,8 @@ func main() {
 	c := logdna.NewClient(cfg)
 	c.Run()
 	c.Err("Hi", time.Now().UTC().String())
+	err := fmt.Errorf("This is some sort of bullshit")
+	c.Err("Hi", err.Error())
 
 	ch := make(chan os.Signal)
 	signal.Notify(ch, syscall.SIGINT, syscall.SIGTERM)

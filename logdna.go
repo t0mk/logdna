@@ -3,10 +3,10 @@ package logdna
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/url"
 	"strconv"
-	"strings"
 	"sync"
 	"time"
 )
@@ -95,34 +95,40 @@ const (
 	FtlL = "Fatal"
 )
 
-func (c *Client) Dbg(msg ...string) {
-	s := strings.Join(msg, " ")
-	c.Log(time.Now().UTC(), DbgL, s)
+func (c *Client) Dbg(msg ...interface{}) {
+	var b bytes.Buffer
+	fmt.Fprintln(&b, msg...)
+	c.Log(time.Now().UTC(), DbgL, b.String())
 }
 
-func (c *Client) Tra(msg ...string) {
-	s := strings.Join(msg, " ")
-	c.Log(time.Now().UTC(), TraL, s)
+func (c *Client) Tra(msg ...interface{}) {
+	var b bytes.Buffer
+	fmt.Fprintln(&b, msg...)
+	c.Log(time.Now().UTC(), TraL, b.String())
 }
 
-func (c *Client) Inf(msg ...string) {
-	s := strings.Join(msg, " ")
-	c.Log(time.Now().UTC(), InfL, s)
+func (c *Client) Inf(msg ...interface{}) {
+	var b bytes.Buffer
+	fmt.Fprintln(&b, msg...)
+	c.Log(time.Now().UTC(), InfL, b.String())
 }
 
-func (c *Client) War(msg ...string) {
-	s := strings.Join(msg, " ")
-	c.Log(time.Now().UTC(), WarL, s)
+func (c *Client) War(msg ...interface{}) {
+	var b bytes.Buffer
+	fmt.Fprintln(&b, msg...)
+	c.Log(time.Now().UTC(), WarL, b.String())
 }
 
-func (c *Client) Err(msg ...string) {
-	s := strings.Join(msg, " ")
-	c.Log(time.Now().UTC(), ErrL, s)
+func (c *Client) Err(msg ...interface{}) {
+	var b bytes.Buffer
+	fmt.Fprintln(&b, msg...)
+	c.Log(time.Now().UTC(), ErrL, b.String())
 }
 
-func (c *Client) Ftl(msg ...string) {
-	s := strings.Join(msg, " ")
-	c.Log(time.Now().UTC(), FtlL, s)
+func (c *Client) Ftl(msg ...interface{}) {
+	var b bytes.Buffer
+	fmt.Fprintln(&b, msg...)
+	c.Log(time.Now().UTC(), FtlL, b.String())
 }
 
 func (c *Client) Log(t time.Time, lvl, msg string) {
