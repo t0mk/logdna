@@ -173,6 +173,7 @@ func (c *Client) Flush() error {
 
 	apiURL := makeIngestURL(c.config)
 	client := retryablehttp.NewClient()
+	client.Logger = nil
 
 	resp, err := client.Post(apiURL.String(), "application/json", jsonReader)
 
