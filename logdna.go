@@ -4,11 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"net/http"
 	"net/url"
 	"strconv"
 	"sync"
 	"time"
+
+	"github.com/hashicorp/go-retryablehttp"
 )
 
 // IngestBaseURL is the base URL for the LogDNA ingest API.
@@ -77,7 +78,10 @@ func (c *Client) Run() {
 		for {
 			select {
 			case <-ticker.C:
-				c.Flush()
+				err := c.Flush()
+				if err != nil {
+					fmt.Println(err)
+				}
 			case <-c.stopSignal:
 				ticker.Stop()
 				return
@@ -168,8 +172,9 @@ func (c *Client) Flush() error {
 	jsonReader := bytes.NewReader(jsonPayload)
 
 	apiURL := makeIngestURL(c.config)
+	client := retryablehttp.NewClient()
 
-	resp, err := http.Post(apiURL.String(), "application/json", jsonReader)
+	resp, err := client.Post(apiURL.String(), "application/json", jsonReader)
 
 	if err != nil {
 		return err
